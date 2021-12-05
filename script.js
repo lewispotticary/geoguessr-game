@@ -33,16 +33,19 @@ import RandomLocations from "./RandomLocations.js";
     function placeMarker(location) {
         if ( marker ) {
           marker.setPosition(location);
-        } else {
-          marker = new google.maps.Marker({
+        } 
+        else {
+            checkButton.disabled = false;
+            marker = new google.maps.Marker({
             position: location,
-            map: map
+            map: map,
           });
         }
     }
 
     
     function nextRound(){
+        nextButton.disabled = true;
         const randomIndex = Math.floor(Math.random() * arrayLength);
         const locationLat = RandomLocations.RandomLocations[randomIndex][0];
         const locationLng = RandomLocations.RandomLocations[randomIndex][1];
@@ -50,13 +53,27 @@ import RandomLocations from "./RandomLocations.js";
         panorama.setPosition(streetviewLocation);
     }
 
+
+    function checkLocation(){
+        checkButton.disabled = true;
+        var lat = marker.getPosition().lat();
+        var lng = marker.getPosition().lng();
+        console.log(lat)
+        console.log(lng)
+    }
+
     //Event Listeners
       
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
+        console.log(event.latLng)
     }); 
 
-    document.getElementById("next-button").addEventListener("click", nextRound);
+    var nextButton = document.getElementById("next-button");
+    nextButton.addEventListener("click", nextRound);
 
+    var checkButton = document.getElementById("check-button");
+    checkButton.addEventListener("click", checkLocation);
+    checkButton.disabled = true;
 
 
