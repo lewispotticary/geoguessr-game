@@ -1,11 +1,10 @@
 import RandomLocations from "./RandomLocations.js";
 
-
     const arrayLength = RandomLocations.RandomLocations.length - 1;
     const startIndex = Math.floor(Math.random() * arrayLength);
-    const locationLat = RandomLocations.RandomLocations[startIndex][0];
-    const locationLng = RandomLocations.RandomLocations[startIndex][1];
-    const streetviewLocation = { lat: locationLat, lng: locationLng};
+    var randomLat = RandomLocations.RandomLocations[startIndex][0];
+    var randomLng = RandomLocations.RandomLocations[startIndex][1];
+    const streetviewLocation = { lat: randomLat, lng: randomLng};
     
 
     //Map Function
@@ -26,6 +25,11 @@ import RandomLocations from "./RandomLocations.js";
       }
     );
 
+    const resultMap = new google.maps.Map(document.getElementById("result-map"), {
+      center: { lat: 32.397, lng: -25.644 },
+      zoom: 2,
+  });
+
     //Place Marker Function
 
     var marker;
@@ -45,6 +49,7 @@ import RandomLocations from "./RandomLocations.js";
 
     
     function nextRound(){
+        marker.setMap(null);
         nextButton.disabled = true;
         const randomIndex = Math.floor(Math.random() * arrayLength);
         const locationLat = RandomLocations.RandomLocations[randomIndex][0];
@@ -53,13 +58,33 @@ import RandomLocations from "./RandomLocations.js";
         panorama.setPosition(streetviewLocation);
     }
 
+   
 
     function checkLocation(){
         checkButton.disabled = true;
-        var lat = marker.getPosition().lat();
-        var lng = marker.getPosition().lng();
-        console.log(lat)
-        console.log(lng)
+        nextButton.disabled = false;
+        var guessLat = marker.getPosition().lat();
+        var guessLng = marker.getPosition().lng();
+        calcCrow(guessLat, guessLng, randomLat, randomLng);
+    }
+
+    function calcCrow(guessLat, guessLng) 
+    {
+      var R = 6371; // km
+      var dLat = toRad(guessLat-randomLat);
+      var dLon = toRad(guessLng-randomLng);
+      var lat1 = toRad(randomLat);
+      var lat2 = toRad(guessLat);
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      var distance = Math.round(d * 0.62137);
+    }
+
+    function toRad(Value) 
+    {
+        return Value * Math.PI / 180;
     }
 
     //Event Listeners
@@ -71,6 +96,7 @@ import RandomLocations from "./RandomLocations.js";
 
     var nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", nextRound);
+    nextButton.disabled = true;
 
     var checkButton = document.getElementById("check-button");
     checkButton.addEventListener("click", checkLocation);
