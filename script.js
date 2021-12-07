@@ -47,9 +47,11 @@ import RandomLocations from "./RandomLocations.js";
         }
     }
 
+    //Next Round Function 
     
     function nextRound(){
         marker.setMap(null);
+        marker = null;
         nextButton.disabled = true;
         const randomIndex = Math.floor(Math.random() * arrayLength);
         const locationLat = RandomLocations.RandomLocations[randomIndex][0];
@@ -58,15 +60,38 @@ import RandomLocations from "./RandomLocations.js";
         panorama.setPosition(streetviewLocation);
     }
 
-   
+    //Check Location Function
 
     function checkLocation(){
         checkButton.disabled = true;
         nextButton.disabled = false;
         var guessLat = marker.getPosition().lat();
         var guessLng = marker.getPosition().lng();
+        var guessLocation = { lat: guessLat, lng: guessLng};
+        console.log(guessLocation);
         calcCrow(guessLat, guessLng, randomLat, randomLng);
+        showResults(guessLocation);
     }
+
+    var guessMarker;
+    var resultMarker;
+
+    function showResults(guessLocation){
+      console.log(guessLocation);
+        resultMarker = new google.maps.Marker({
+        position: streetviewLocation,
+        map: resultMap,
+        });
+        guessMarker = new google.maps.Marker({
+          position: guessLocation,
+          map: resultMap,
+        });
+
+      resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+      guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+    }
+
+    //Calculate Distance between two coordinates
 
     function calcCrow(guessLat, guessLng) 
     {
@@ -91,7 +116,6 @@ import RandomLocations from "./RandomLocations.js";
       
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
-        console.log(event.latLng)
     }); 
 
     var nextButton = document.getElementById("next-button");
