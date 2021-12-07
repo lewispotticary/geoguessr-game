@@ -52,6 +52,10 @@ import RandomLocations from "./RandomLocations.js";
     function nextRound(){
         marker.setMap(null);
         marker = null;
+        guessMarker.setMap(null);
+        resultMarker.setMap(null);
+        guessMarker = null;
+        resultMarker = null;
         nextButton.disabled = true;
         const randomIndex = Math.floor(Math.random() * arrayLength);
         const locationLat = RandomLocations.RandomLocations[randomIndex][0];
@@ -68,7 +72,6 @@ import RandomLocations from "./RandomLocations.js";
         var guessLat = marker.getPosition().lat();
         var guessLng = marker.getPosition().lng();
         var guessLocation = { lat: guessLat, lng: guessLng};
-        console.log(guessLocation);
         calcCrow(guessLat, guessLng, randomLat, randomLng);
         showResults(guessLocation);
     }
