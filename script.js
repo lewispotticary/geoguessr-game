@@ -45,6 +45,7 @@ import RandomLocations from "./RandomLocations.js";
             map: map,
           });
         }
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
     }
 
     //Next Round Function 
@@ -73,14 +74,13 @@ import RandomLocations from "./RandomLocations.js";
         var guessLng = marker.getPosition().lng();
         var guessLocation = { lat: guessLat, lng: guessLng};
         calcCrow(guessLat, guessLng, randomLat, randomLng);
-        showResults(guessLocation);
+        showResults(guessLocation, guessLat, guessLng);
     }
 
     var guessMarker;
     var resultMarker;
 
-    function showResults(guessLocation){
-      console.log(guessLocation);
+    function showResults(guessLocation, guessLat, guessLng){
         resultMarker = new google.maps.Marker({
         position: streetviewLocation,
         map: resultMap,
@@ -89,6 +89,20 @@ import RandomLocations from "./RandomLocations.js";
           position: guessLocation,
           map: resultMap,
         });
+
+        const polylineCoordinates = [
+          { lat: guessLat, lng: guessLng },
+          { lat: randomLat, lng: randomLng },
+        ];
+
+        const flightPath = new google.maps.Polyline({
+          path: polylineCoordinates,
+          strokeColor: "#FF0000",
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+        });
+      
+        flightPath.setMap(resultMap);
 
       resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
       guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
