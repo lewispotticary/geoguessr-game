@@ -51,7 +51,10 @@ import RandomLocations from "./RandomLocations.js";
 
     //Next Round Function 
     
-    function nextRound(){    
+    function nextRound(){   
+        roundValue = roundValue + 1;
+        roundNumber.innerHTML = "Round: " + roundValue + "/" + "6";
+        console.log(roundValue); 
         path.setMap(null);
         marker.setMap(null);
         marker = null;
