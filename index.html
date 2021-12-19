@@ -10,21 +10,22 @@
     <script type="module" src="./script.js"></script>
 </head>
 <body>
-    <h1>GeoGuessr Clone</h1>
-    <div class="row-1">
-        <div id="pano"></div>
-        <div id="map"></div>
+    <div class="row">
+        <div class="column-left">
+            <div id="pano"></div>
+        </div>
+        <div class="column-right">
+            <div id="map"></div>
+            <div class="controls-container">
+                <button id="check-button">Check</button>
+                <button id="next-button">Next Round</button>
+            </div>
+            <div class="info-container">
+                <h2 id="round-number"></h2>
+                <h2 id="score-number"></h2>
+            </div>
+        </div>
     </div>
-    <div class="row-2">
-        <button id="next-button">Next</button>
-        <h2>Round: 1/6</h2>
-        <button id="check-button">Check</button>
-    </div>
-    <div class="row-3">
-        <div id="result-map"></div>
-    </div>
-    
-    
     <script
       src="https://maps.googleapis.com/maps/api/js?key=&v=weekly"
       async
