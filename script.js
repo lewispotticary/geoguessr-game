@@ -6,6 +6,7 @@ import RandomLocations from "./RandomLocations.js";
     var randomLng = RandomLocations.RandomLocations[startIndex][1];
     const streetviewLocation = { lat: randomLat, lng: randomLng};
     var roundValue = 1;
+    var score = 0;
     
 
     //Map Function
@@ -26,10 +27,7 @@ import RandomLocations from "./RandomLocations.js";
       }
     );
 
-    const resultMap = new google.maps.Map(document.getElementById("result-map"), {
-      center: { lat: 32.397, lng: -25.644 },
-      zoom: 2,
-  });
+
 
     //Place Marker Function
 
@@ -89,11 +87,11 @@ import RandomLocations from "./RandomLocations.js";
     function showResults(guessLocation, guessLat, guessLng){
         resultMarker = new google.maps.Marker({
         position: streetviewLocation,
-        map: resultMap,
+        map: map,
         });
         guessMarker = new google.maps.Marker({
           position: guessLocation,
-          map: resultMap,
+          map: map,
         });
 
         const polylineCoordinates = [
@@ -108,13 +106,15 @@ import RandomLocations from "./RandomLocations.js";
           strokeWeight: 2,
         });
       
-        path.setMap(resultMap);
+        path.setMap(map);
 
       resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
       guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
     }
 
     //Calculate Distance between two coordinates
+
+    var distance;
 
     function calcCrow(guessLat, guessLng) 
     {
@@ -127,7 +127,17 @@ import RandomLocations from "./RandomLocations.js";
         Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
       var d = R * c;
-      var distance = Math.round(d * 0.62137);
+      distance = Math.round(d * 0.62137);
+      alert("You were " + distance + " miles away");
+      if(score === 0){
+        score = distance;
+        scoreNumber.innerHTML = "Score: " + score + " miles";
+      }
+      else{
+        score = score + distance;
+        scoreNumber.innerHTML = "Score: " + score + " miles";
+      }
+      
     }
 
     function toRad(Value) 
@@ -141,9 +151,11 @@ import RandomLocations from "./RandomLocations.js";
         placeMarker(event.latLng);
     }); 
 
+    var scoreNumber = document.getElementById("score-number");
+    scoreNumber.innerHTML = "Score: " + score + " miles";
+
     var roundNumber = document.getElementById("round-number");
     roundNumber.innerHTML = "Round: " + roundValue + "/" + "6";
-
 
     var nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", nextRound);
