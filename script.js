@@ -1,10 +1,10 @@
 import RandomLocations from "./RandomLocations.js";
 
     const arrayLength = RandomLocations.RandomLocations.length - 1;
-    const startIndex = Math.floor(Math.random() * arrayLength);
-    var randomLat = RandomLocations.RandomLocations[startIndex][0];
-    var randomLng = RandomLocations.RandomLocations[startIndex][1];
-    const streetviewLocation = { lat: randomLat, lng: randomLng};
+    var randomIndex = Math.floor(Math.random() * arrayLength);
+    var randomLat = RandomLocations.RandomLocations[randomIndex][0];
+    var randomLng = RandomLocations.RandomLocations[randomIndex][1];
+    var streetviewLocation = { lat: randomLat, lng: randomLng};
     var roundValue = 1;
     var score = 0;
     
@@ -27,7 +27,7 @@ import RandomLocations from "./RandomLocations.js";
       }
     );
 
-
+    
 
     //Place Marker Function
 
@@ -52,7 +52,6 @@ import RandomLocations from "./RandomLocations.js";
     function nextRound(){   
         roundValue = roundValue + 1;
         roundNumber.innerHTML = "Round: " + roundValue + "/" + "6";
-        console.log(roundValue); 
         path.setMap(null);
         marker.setMap(null);
         marker = null;
@@ -61,10 +60,10 @@ import RandomLocations from "./RandomLocations.js";
         guessMarker = null;
         resultMarker = null;
         nextButton.disabled = true;
-        const randomIndex = Math.floor(Math.random() * arrayLength);
-        const locationLat = RandomLocations.RandomLocations[randomIndex][0];
-        const locationLng = RandomLocations.RandomLocations[randomIndex][1];
-        const streetviewLocation = { lat: locationLat, lng: locationLng};
+        randomIndex = Math.floor(Math.random() * arrayLength);
+        randomLat = RandomLocations.RandomLocations[randomIndex][0];
+        randomLng = RandomLocations.RandomLocations[randomIndex][1];
+        streetviewLocation = { lat: randomLat, lng: randomLng};
         panorama.setPosition(streetviewLocation);
     }
 
