@@ -5,6 +5,7 @@ import RandomLocations from "./RandomLocations.js";
     var randomLat = RandomLocations.RandomLocations[startIndex][0];
     var randomLng = RandomLocations.RandomLocations[startIndex][1];
     const streetviewLocation = { lat: randomLat, lng: randomLng};
+    var roundValue = 1;
     
 
     //Map Function
@@ -50,7 +51,8 @@ import RandomLocations from "./RandomLocations.js";
 
     //Next Round Function 
     
-    function nextRound(){
+    function nextRound(){    
+        path.setMap(null);
         marker.setMap(null);
         marker = null;
         guessMarker.setMap(null);
@@ -79,6 +81,7 @@ import RandomLocations from "./RandomLocations.js";
 
     var guessMarker;
     var resultMarker;
+    var path;
 
     function showResults(guessLocation, guessLat, guessLng){
         resultMarker = new google.maps.Marker({
@@ -95,14 +98,14 @@ import RandomLocations from "./RandomLocations.js";
           { lat: randomLat, lng: randomLng },
         ];
 
-        const flightPath = new google.maps.Polyline({
+        path = new google.maps.Polyline({
           path: polylineCoordinates,
           strokeColor: "#FF0000",
           strokeOpacity: 1.0,
           strokeWeight: 2,
         });
       
-        flightPath.setMap(resultMap);
+        path.setMap(resultMap);
 
       resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
       guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
@@ -134,6 +137,10 @@ import RandomLocations from "./RandomLocations.js";
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
     }); 
+
+    var roundNumber = document.getElementById("round-number");
+    roundNumber.innerHTML = "Round: " + roundValue + "/" + "6";
+
 
     var nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", nextRound);
