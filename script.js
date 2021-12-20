@@ -104,8 +104,15 @@ import RandomLocations from "./RandomLocations.js";
           strokeOpacity: 1.0,
           strokeWeight: 2,
         });
+
+        var centerLat = (guessLat + randomLat) / 2; 
+        var centerLng = (guessLng + randomLng) / 2;
+        console.log(centerLat)
+        console.log(centerLng)
       
         path.setMap(map);
+        map.setCenter({ lat: centerLat, lng: centerLng });
+        map.setZoom(2);
 
       resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
       guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
