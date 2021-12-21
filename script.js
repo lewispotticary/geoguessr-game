@@ -7,7 +7,6 @@ import RandomLocations from "./RandomLocations.js";
     var streetviewLocation = { lat: randomLat, lng: randomLng};
     var roundValue = 1;
     var score = 0;
-    
 
     //Map Function
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -26,8 +25,6 @@ import RandomLocations from "./RandomLocations.js";
         },
       }
     );
-
-    
 
     //Place Marker Function
 
@@ -49,7 +46,9 @@ import RandomLocations from "./RandomLocations.js";
 
     //Next Round Function 
     
-    function nextRound(){   
+    function nextRound(){  
+        map.setCenter({ lat: 32.397, lng: -25.644 }); 
+        map.setZoom(2);
         roundValue = roundValue + 1;
         roundNumber.innerHTML = "Round: " + roundValue + "/" + "6";
         path.setMap(null);
@@ -112,7 +111,18 @@ import RandomLocations from "./RandomLocations.js";
       
         path.setMap(map);
         map.setCenter({ lat: centerLat, lng: centerLng });
-        map.setZoom(2);
+        console.log(distance);
+
+        if(distance < 1000){
+          map.setZoom(4.5);
+        }
+        if(distance > 1000 && distance < 5000){
+          map.setZoom(3);
+        }
+        else if (distance > 5000){
+          map.setZoom(1);
+        }
+       
 
       resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
       guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
@@ -170,5 +180,3 @@ import RandomLocations from "./RandomLocations.js";
     var checkButton = document.getElementById("check-button");
     checkButton.addEventListener("click", checkLocation);
     checkButton.disabled = true;
-
-
