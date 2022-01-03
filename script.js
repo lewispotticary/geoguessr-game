@@ -170,6 +170,10 @@ function toRad(Value)
     return Value * Math.PI / 180;
 }
 
+function restartGame(){
+  console.log("hello");    
+}
+
 //Event Listeners
   
 google.maps.event.addListener(map, 'click', function(event) {
@@ -189,3 +193,7 @@ nextButton.disabled = true;
 var checkButton = document.getElementById("check-button");
 checkButton.addEventListener("click", checkLocation);
 checkButton.disabled = true;
+
+var restartButton = document.getElementById("restart-button");
+restartButton.addEventListener("click", checkLocation)
+restartButton.disabled = true;
