@@ -10,8 +10,8 @@ var score = 0;
 
 //Map Function
 const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 32.397, lng: -25.644 },
-    zoom: 1,
+    center: { lat: 32.397, lng: -30.644 },
+    zoom: 2,
 });
 
 //Street View Function
