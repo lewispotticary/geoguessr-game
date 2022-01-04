@@ -50,8 +50,8 @@ function placeMarker(location) {
   function nextRound(){  
         console.log("hello");
         nextButton.disabled = true;
-        map.setCenter({ lat: 32.397, lng: -25.644 }); 
-        map.setZoom(1);
+        map.setCenter({ lat: 32.397, lng: -30.644 }); 
+        map.setZoom(2);
         roundValue = roundValue + 1;
         roundNumber.innerHTML = roundValue + "/" + "6";
         path.setMap(null);
