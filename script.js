@@ -1,5 +1,47 @@
 import RandomLocations from "./RandomLocations.js";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCZpjshBQB-W8nfcBF9G8jBjTeWNasf5uc",
+  authDomain: "geoguessr-clone-959c0.firebaseapp.com",
+  projectId: "geoguessr-clone-959c0",
+  databaseURL: "https://geoguessr-clone-959c0-default-rtdb.europe-west1.firebasedatabase.app",
+  storageBucket: "geoguessr-clone-959c0.appspot.com",
+  messagingSenderId: "829776637609",
+  appId: "1:829776637609:web:e09429870bb507df7003b8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+import {getDatabase, ref, set, child, update, remove}
+from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
+
+const db = getDatabase();
+
+
+
+var userName = document.getElementById("submit-input");
+var scoreNumber1 = document.getElementById("score-input");
+var submitButton = document.getElementById("submit-button");
+
+
+function saveData(){
+  console.log(scoreNumber1);
+    console.log("submit");
+    set(ref(db, "Username/" + userName.value),{
+        Name: userName.value,
+        Score: scoreNumber1.value,
+    });
+}
+
+submitButton.addEventListener("click", saveData);
+
 const arrayLength = RandomLocations.RandomLocations.length - 1;
 var randomIndex = Math.floor(Math.random() * arrayLength);
 var randomLat = RandomLocations.RandomLocations[randomIndex][0];
