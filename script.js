@@ -26,9 +26,9 @@ const db = getDatabase();
 
 
 
-var userName = document.getElementById("submit-input");
-var scoreNumber1 = document.getElementById("score-input");
-var submitButton = document.getElementById("submit-button");
+//var userName = document.getElementById("submit-input");
+//var scoreNumber1 = document.getElementById("score-input");
+//var submitButton = document.getElementById("submit-button");
 
 
 function saveData(){
@@ -40,7 +40,7 @@ function saveData(){
     });
 }
 
-submitButton.addEventListener("click", saveData);
+//submitButton.addEventListener("click", saveData);
 
 const arrayLength = RandomLocations.RandomLocations.length - 1;
 var randomIndex = Math.floor(Math.random() * arrayLength);
