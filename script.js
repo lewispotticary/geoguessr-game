@@ -49,6 +49,7 @@ function placeMarker(location) {
 
   function nextRound(){  
         console.log("hello");
+        restartButton.disabled = true;
         nextButton.disabled = true;
         map.setCenter({ lat: 32.397, lng: -30.644 }); 
         map.setZoom(2);
