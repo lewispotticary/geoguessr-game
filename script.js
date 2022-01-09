@@ -83,6 +83,7 @@ function checkLocation(){
   showResults(guessLocation, guessLat, guessLng);
   if(roundValue === 6){
     nextButton.disabled = true;
+    restartButton.disabled = false;
     scoreNumber.innerHTML = "Final Score: " + score + " miles";
   }     
 }
@@ -171,7 +172,11 @@ function toRad(Value)
 }
 
 function restartGame(){
-  console.log("hello");    
+  score = 0;  
+  roundValue = 0;
+  scoreNumber.innerHTML = "Score: " + score + " miles";
+  roundNumber.innerHTML = roundValue + "/" + "6";
+  nextRound();
 }
 
 //Event Listeners
@@ -195,5 +200,5 @@ checkButton.addEventListener("click", checkLocation);
 checkButton.disabled = true;
 
 var restartButton = document.getElementById("restart-button");
-restartButton.addEventListener("click", checkLocation)
+restartButton.addEventListener("click", restartGame)
 restartButton.disabled = true;
