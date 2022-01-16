@@ -3,8 +3,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import {getDatabase, ref, set, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
-import { getAuth } 
+import { getAuth, createUserWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
+
 
 //Firebase configuration
 const firebaseConfig = {
@@ -38,5 +39,23 @@ function saveData(){
         Score: scoreNumber1.value,
     });
 }
+
+const signupForm = document.querySelector('.signup')
+
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const email = signupForm.email.value;
+  const password = signupForm.password.value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log('user created:', cred.user)
+      signupForm.reset()
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+})
 
 //submitButton.addEventListener("click", saveData);

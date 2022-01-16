@@ -8,6 +8,7 @@ var streetviewLocation = { lat: randomLat, lng: randomLng};
 var roundValue = 1;
 var score = 0;
 
+
 //Map Function
 const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 32.397, lng: -30.644 },
