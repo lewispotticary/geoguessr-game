@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import {getDatabase, ref, set, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
-import { getAuth, createUserWithEmailAndPassword, signOut } 
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
 
@@ -56,6 +56,28 @@ signupForm.addEventListener('submit', (e) => {
     })
 })
 
+//Sign In Function
+
+const loginForm = document.querySelector('.login')
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const email = loginForm.email.value;
+  const password = loginForm.password.value;
+
+  signInWithEmailAndPassword(auth, email, password)
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log('user sign in:', cred.user)
+      loginForm.reset()
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
+})
+
 //Log Out Function
 
 const logoutButton = document.querySelector('.logout')
@@ -69,6 +91,8 @@ logoutButton.addEventListener('click', () => {
     console.log(err.message)
   })
 })
+
+
 
 
 //submitButton.addEventListener("click", saveData);
