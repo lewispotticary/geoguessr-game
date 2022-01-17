@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import {getDatabase, ref, set, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
-import { getAuth, createUserWithEmailAndPassword } 
+import { getAuth, createUserWithEmailAndPassword, signOut } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
 
@@ -27,10 +27,6 @@ const db = getDatabase();
 // Initialize Firebase Auth
 const auth = getAuth();
 
-//var userName = document.getElementById("submit-input");
-//var scoreNumber1 = document.getElementById("score-input");
-//var submitButton = document.getElementById("submit-button");
-
 function saveData(){
   console.log(scoreNumber1);
     console.log("submit");
@@ -39,6 +35,8 @@ function saveData(){
         Score: scoreNumber1.value,
     });
 }
+
+//Sign Up Function
 
 const signupForm = document.querySelector('.signup')
 
@@ -58,4 +56,23 @@ signupForm.addEventListener('submit', (e) => {
     })
 })
 
+//Log Out Function
+
+const logoutButton = document.querySelector('.logout')
+
+logoutButton.addEventListener('click', () => {
+  signOut(auth)
+  .then(() => {
+    console.log('the user signed out')
+  })
+  .catch((err) => {
+    console.log(err.message)
+  })
+})
+
+
 //submitButton.addEventListener("click", saveData);
+
+//var userName = document.getElementById("submit-input");
+//var scoreNumber1 = document.getElementById("score-input");
+//var submitButton = document.getElementById("submit-button");
