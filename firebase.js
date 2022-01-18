@@ -3,9 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import {getDatabase, ref, set, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
-import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } 
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
-
 
 //Firebase configuration
 const firebaseConfig = {
@@ -26,6 +25,19 @@ const db = getDatabase();
 
 // Initialize Firebase Auth
 const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User signed in");
+    console.log(document.getElementsByClassName("signup"));
+    // ...
+  } else {
+    console.log("User not signed in")
+    // ...
+  }
+});
+
+//Save Data to Database
 
 function saveData(){
   console.log(scoreNumber1);
@@ -91,6 +103,10 @@ logoutButton.addEventListener('click', () => {
     console.log(err.message)
   })
 })
+
+
+
+
 
 
 
