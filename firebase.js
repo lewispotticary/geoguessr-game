@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import {getDatabase, ref, set, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
-import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged } 
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
 //Firebase configuration
@@ -26,13 +26,17 @@ const db = getDatabase();
 // Initialize Firebase Auth
 const auth = getAuth();
 
+var signup = document.getElementsByClassName("signup")[0];
+var login = document.getElementsByClassName("login")[0];
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("User signed in");
-    console.log(document.getElementsByClassName("signup"));
+    signup.style.display = "none";
+    login.style.display = "none";
     // ...
   } else {
-    console.log("User not signed in")
+    signup.style.display = "flex";
+    login.style.display = "flex";
     // ...
   }
 });
@@ -61,6 +65,15 @@ signupForm.addEventListener('submit', (e) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       console.log('user created:', cred.user)
+      updateProfile(auth.currentUser, {
+        displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => {
+        // Profile updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
       signupForm.reset()
     })
     .catch((err) => {
