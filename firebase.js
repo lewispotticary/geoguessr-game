@@ -33,10 +33,12 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     signup.style.display = "none";
     login.style.display = "none";
+    logoutButton.style.display = "block";
     // ...
   } else {
     signup.style.display = "flex";
     login.style.display = "flex";
+    logoutButton.style.display = "none";
     // ...
   }
 });
@@ -70,14 +72,13 @@ signupForm.addEventListener('submit', (e) => {
       }).then(() => {
         // Profile updated!
         // ...
-      }).catch((error) => {
-        // An error occurred
-        // ...
+      }).catch((err) => {
+        alert(err.message)
       });
       signupForm.reset()
     })
     .catch((err) => {
-      console.log(err.message)
+      alert(err.message)
     })
 })
 
@@ -99,7 +100,7 @@ loginForm.addEventListener('submit', (e) => {
       loginForm.reset()
     })
     .catch((err) => {
-      console.log(err.message)
+      alert(err.message);
     })
 })
 
