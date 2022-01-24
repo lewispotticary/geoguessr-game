@@ -137,6 +137,57 @@ h2 {
   cursor: pointer;
 }
 
+/* Modal Styling */
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.close {
+  display: flex;
+  justify-content: end;
+}
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  width: 50%;
+}
+
+.login h2 {
+  color: black;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.signup h2 {
+  color: black;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+input {
+  height: 2rem;
+  width: auto;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: 1px black solid;
+  padding: 5px;
+}
+
+.modalRow {
+  display: flex;
+  justify-content: start;
+}
+
 @media only screen and (max-width: 600px) {
   .row {
     flex-direction: column;
