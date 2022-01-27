@@ -30,8 +30,12 @@
                 <button id="myBtn">Leaderboard</button>
                 <div id="myModal" class="modal">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
 
+                        <div class="modalHeader">
+                            <h2 id="welcomeUser">Hello,</h2>
+                            <span class="close">&times;</span>
+                        </div>
+                       
                         <div class="modalRow">
                             <form class="login">
                                 <h2>Login</h2>
@@ -39,17 +43,35 @@
                                 <input type="password" name="password" placeholder="Password">
                                 <button>Login</button>
                             </form>
-    
                             
                             <form class="signup">
                                 <h2>Sign Up</h2>
-                                <input type="text" name="name" id="name" placeholder="Name">
+                                <input type="text" name="name" placeholder="Name">
                                 <input type="email" name="email" placeholder="Email">
                                 <input type="password" name="password" placeholder="Password">
                                 <button>Sign Up</button>
                             </form>
                         </div>
-                        
+
+                        <h2>Leaderboard</h2>
+
+                        <table>
+                            <tr>
+                              <th>Rank</th>
+                              <th>Name</th>
+                              <th>Score</th>
+                            </tr>
+                            <tr>
+                              <td>Alfreds Futterkiste</td>
+                              <td>Maria Anders</td>
+                              <td>Germany</td>
+                            </tr>
+                            <tr>
+                              <td>Centro comercial Moctezuma</td>
+                              <td>Francisco Chang</td>
+                              <td>Mexico</td>
+                            </tr>
+                          </table>
 
                         <button class="logout">logout</button>
                     </div>
