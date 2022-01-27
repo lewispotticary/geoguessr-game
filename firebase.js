@@ -28,17 +28,22 @@ const auth = getAuth();
 
 var signup = document.getElementsByClassName("signup")[0];
 var login = document.getElementsByClassName("login")[0];
+var welcomeUser = document.getElementById("welcomeUser");
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    var username = auth.currentUser.displayName;
+    welcomeUser.innerHTML = "Hello, " + username.charAt(0).toUpperCase() + username.slice(1);
     signup.style.display = "none";
     login.style.display = "none";
     logoutButton.style.display = "block";
+    welcomeUser.style.display = "flex";
     // ...
   } else {
     signup.style.display = "flex";
     login.style.display = "flex";
     logoutButton.style.display = "none";
+    welcomeUser.style.display = "none";
     // ...
   }
 });
@@ -63,12 +68,13 @@ signupForm.addEventListener('submit', (e) => {
 
   const email = signupForm.email.value;
   const password = signupForm.password.value;
+  const name = signupForm.name.value;
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       console.log('user created:', cred.user)
       updateProfile(auth.currentUser, {
-        displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+        displayName: name
       }).then(() => {
         // Profile updated!
         // ...
@@ -96,7 +102,6 @@ loginForm.addEventListener('submit', (e) => {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
-      console.log('user sign in:', cred.user)
       loginForm.reset()
     })
     .catch((err) => {
