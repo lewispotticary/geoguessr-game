@@ -6,6 +6,9 @@ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
+import { finalScore } from "./script.js";
+
+
 //Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCZpjshBQB-W8nfcBF9G8jBjTeWNasf5uc",
@@ -29,10 +32,13 @@ const auth = getAuth();
 var signup = document.getElementsByClassName("signup")[0];
 var login = document.getElementsByClassName("login")[0];
 var welcomeUser = document.getElementById("welcomeUser");
+var userID;
+var username
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    var username = auth.currentUser.displayName;
+    userID = user.uid;
+    username = auth.currentUser.displayName;
     welcomeUser.innerHTML = "Hello, " + username.charAt(0).toUpperCase() + username.slice(1);
     signup.style.display = "none";
     login.style.display = "none";
@@ -50,12 +56,11 @@ onAuthStateChanged(auth, (user) => {
 
 //Save Data to Database
 
-function saveData(){
-  console.log(scoreNumber1);
+export function saveData(){
     console.log("submit");
-    set(ref(db, "Username/" + userName.value),{
-        Name: userName.value,
-        Score: scoreNumber1.value,
+    set(ref(db, "Username/" + userID),{
+        Name: username,
+        highScore: finalScore,
     });
 }
 
@@ -123,6 +128,8 @@ logoutButton.addEventListener('click', () => {
   })
 })
 
+
+export {userID};
 
 
 

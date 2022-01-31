@@ -1,4 +1,8 @@
 import RandomLocations from "./RandomLocations.js";
+import { userID } from "./firebase.js";
+import {saveData} from './firebase.js';
+
+//Variables
 
 const arrayLength = RandomLocations.RandomLocations.length - 1;
 var randomIndex = Math.floor(Math.random() * arrayLength);
@@ -7,15 +11,18 @@ var randomLng = RandomLocations.RandomLocations[randomIndex][1];
 var streetviewLocation = { lat: randomLat, lng: randomLng};
 var roundValue = 1;
 var score = 0;
-
+var finalScore;
+export {finalScore};
 
 //Map Function
+
 const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 32.397, lng: -30.644 },
     zoom: 2,
 });
 
 //Street View Function
+
 const panorama = new google.maps.StreetViewPanorama(
   document.getElementById("pano"),
   {
@@ -46,7 +53,6 @@ function placeMarker(location) {
 }
 
 //Next Round Function 
-
 
   function nextRound(){  
         console.log("hello");
@@ -87,18 +93,30 @@ function checkLocation(){
     nextButton.disabled = true;
     restartButton.disabled = false;
     scoreNumber.innerHTML = "Final Score: " + score + " miles";
+    finalScore = score;
+    if(userID === undefined){
+      console.log("Not signed in. Cannot save score");
+    }
+    else{
+      console.log("User signed in. Can save score");
+      saveData();
+    }
   }     
 }
+
+//Show results on map function
 
 var guessMarker;
 var resultMarker;
 var path;
 
 function showResults(guessLocation, guessLat, guessLng){
+
     resultMarker = new google.maps.Marker({
     position: streetviewLocation,
     map: map,
     });
+
     guessMarker = new google.maps.Marker({
       position: guessLocation,
       map: map,
@@ -135,7 +153,6 @@ function showResults(guessLocation, guessLat, guessLng){
       map.setZoom(1);
     }
     
-
   resultMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
   guessMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
 }
@@ -172,6 +189,8 @@ function toRad(Value)
 {
     return Value * Math.PI / 180;
 }
+
+//Restart Game Function
 
 function restartGame(){
   score = 0;  
