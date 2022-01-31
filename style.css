@@ -126,6 +126,7 @@ button:disabled {
 .modal-content h2 {
   color: black;
   margin-left: 0;
+  margin-bottom: 2rem;
 }
 
 /* The Close Button */
@@ -213,6 +214,7 @@ th {
 table {
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 2rem;
 }
 
 th,
