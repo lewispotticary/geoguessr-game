@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 
-import {getDatabase, ref, set, child, update, remove}
+import {getDatabase, ref, set, get, child, update, remove}
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } 
@@ -62,6 +62,25 @@ export function saveData(){
         Name: username,
         highScore: finalScore,
     });
+}
+
+var userBestScore;
+
+//Retrieve data from database
+
+export function retrieveData(){
+  console.log("retrieve");
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `Username/${userID}/highScore`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    userBestScore = snapshot.val();
+    console.log(userBestScore);
+  } else {
+    console.log("No data available");
+  }
+  }).catch((error) => {
+    console.error(error);
+  });
 }
 
 //Sign Up Function
@@ -128,8 +147,8 @@ logoutButton.addEventListener('click', () => {
   })
 })
 
-
 export {userID};
+export {userBestScore};
 
 
 

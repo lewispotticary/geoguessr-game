@@ -1,6 +1,17 @@
+//Import random coordinates from the randomLocations script
+
 import RandomLocations from "./RandomLocations.js";
+
+//Import userID variable from firebase script
 import { userID } from "./firebase.js";
+
+//Import saveData function from firebase script 
 import {saveData} from './firebase.js';
+
+//Import retrieveData function from firebase script 
+import { retrieveData } from "./firebase.js";
+
+import { userBestScore } from "./firebase.js";
 
 //Variables
 
@@ -89,17 +100,28 @@ function checkLocation(){
   var guessLocation = { lat: guessLat, lng: guessLng};
   calcCrow(guessLat, guessLng, randomLat, randomLng);
   showResults(guessLocation, guessLat, guessLng);
+
+  //If game is finished run code 
   if(roundValue === 6){
     nextButton.disabled = true;
     restartButton.disabled = false;
     scoreNumber.innerHTML = "Final Score: " + score + " miles";
     finalScore = score;
+    //If user not signed in
     if(userID === undefined){
       console.log("Not signed in. Cannot save score");
     }
+    //If user is signed in
     else{
       console.log("User signed in. Can save score");
-      saveData();
+      retrieveData();
+      if (score < userBestScore){
+        alert("New High Score. Uploading To Leaderboard...")
+        saveData();
+      }
+      else{
+        console.log("Wont update score");
+      }
     }
   }     
 }
