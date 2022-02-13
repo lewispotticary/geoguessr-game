@@ -1,3 +1,7 @@
+import { retrieveAllData } from "./firebase.js";
+
+import { sortScore } from "./table.js";
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -9,6 +13,8 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
+  retrieveAllData();
+  
   modal.style.display = "block";
 }
 

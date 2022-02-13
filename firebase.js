@@ -8,6 +8,8 @@ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
 import { finalScore } from "./script.js";
 
+import { sortScore } from "./table.js";
+
 
 //Firebase configuration
 const firebaseConfig = {
@@ -58,7 +60,7 @@ onAuthStateChanged(auth, (user) => {
 
 export function saveData(){
     console.log("submit");
-    set(ref(db, "Username/" + userID),{
+    set(ref(db, "Users/" + userID),{
         Name: username,
         highScore: finalScore,
     });
@@ -66,15 +68,43 @@ export function saveData(){
 
 var userBestScore;
 
-//Retrieve data from database
+//Retrieve score data from database
 
 export function retrieveData(){
   console.log("retrieve");
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `Username/${userID}/highScore`)).then((snapshot) => {
+  get(child(dbRef, `Users/${userID}/highScore`)).then((snapshot) => {
   if (snapshot.exists()) {
     userBestScore = snapshot.val();
     console.log(userBestScore);
+  } else {
+    console.log("No data available");
+  }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+//Retrieve all data from database for leaderboard
+
+var allDatabaseData;
+var leaderboardArray = [];
+
+export function retrieveAllData(){
+  console.log("retrieve all data");
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `Users`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    leaderboardArray = [];
+    console.log("all data retrieved");
+    allDatabaseData = snapshot.val();
+    var arraySize = Object.keys(allDatabaseData).length - 1;
+    for (let i = 0; i <= arraySize; i++) {
+      console.log(leaderboardArray);
+      leaderboardArray.push(allDatabaseData[Object.keys(allDatabaseData)[i]]);
+    }
+    leaderboardArray.sort(function (a, b) {return a.highScore - b.highScore});
+    sortScore();
   } else {
     console.log("No data available");
   }
@@ -97,6 +127,7 @@ signupForm.addEventListener('submit', (e) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       console.log('user created:', cred.user)
+      alert("Account Created!")
       updateProfile(auth.currentUser, {
         displayName: name
       }).then(() => {
@@ -105,7 +136,9 @@ signupForm.addEventListener('submit', (e) => {
       }).catch((err) => {
         alert(err.message)
       });
-      signupForm.reset()
+      console.log(email);
+      console.log(password);
+      signupLogin(email, password);
     })
     .catch((err) => {
       alert(err.message)
@@ -133,6 +166,8 @@ loginForm.addEventListener('submit', (e) => {
     })
 })
 
+//Sign in when sign up
+
 //Log Out Function
 
 const logoutButton = document.querySelector('.logout')
@@ -149,15 +184,4 @@ logoutButton.addEventListener('click', () => {
 
 export {userID};
 export {userBestScore};
-
-
-
-
-
-
-
-//submitButton.addEventListener("click", saveData);
-
-//var userName = document.getElementById("submit-input");
-//var scoreNumber1 = document.getElementById("score-input");
-//var submitButton = document.getElementById("submit-button");
+export {leaderboardArray};
