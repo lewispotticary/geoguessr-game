@@ -119,8 +119,12 @@ function checkLocation(){
         alert("New High Score. Uploading To Leaderboard...")
         saveData();
       }
+      else if (userBestScore === undefined){
+        console.log("No account. Initial save");
+        saveData()
+      }
       else{
-        console.log("Wont update score");
+        console.log("Didnt get a high score");
       }
     }
   }     
