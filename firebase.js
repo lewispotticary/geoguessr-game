@@ -35,31 +35,33 @@ var signup = document.getElementsByClassName("signup")[0];
 var login = document.getElementsByClassName("login")[0];
 var welcomeUser = document.getElementById("welcomeUser");
 var userID;
-var username
+var username;
+var userBestScore;
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    userID = user.uid;
-    username = auth.currentUser.displayName;
-    welcomeUser.innerHTML = "Hello, " + username.charAt(0).toUpperCase() + username.slice(1);
-    signup.style.display = "none";
-    login.style.display = "none";
-    logoutButton.style.display = "block";
-    welcomeUser.style.display = "flex";
-    // ...
-  } else {
-    signup.style.display = "flex";
-    login.style.display = "flex";
-    logoutButton.style.display = "none";
-    welcomeUser.style.display = "none";
-    // ...
-  }
+    if (user) {
+      userID = user.uid;
+      username = auth.currentUser.displayName;
+      welcomeUser.innerHTML = "Hello, " + username.charAt(0).toUpperCase() + username.slice(1);
+      bestScore.style.display = "flex";
+      signup.style.display = "none";
+      login.style.display = "none";
+      logoutButton.style.display = "block";
+      welcomeUser.style.display = "flex";
+    } else {
+      bestScore.style.display = "none";
+      signup.style.display = "flex";
+      login.style.display = "flex";
+      logoutButton.style.display = "none";
+      welcomeUser.style.display = "none";
+    } 
 });
 
 //Save Data to Database
 
 export function saveData(){
     console.log("submit");
+    console.log(username);
     set(ref(db, "Users/" + userID),{
         Name: username,
         highScore: finalScore,
@@ -76,7 +78,8 @@ export function retrieveData(){
   get(child(dbRef, `Users/${userID}/highScore`)).then((snapshot) => {
   if (snapshot.exists()) {
     userBestScore = snapshot.val();
-    console.log(userBestScore);
+    console.log("score" + userBestScore);
+    bestScore.innerHTML = "Your best score is " + userBestScore;
   } else {
     console.log("No data available");
   }
@@ -130,15 +133,14 @@ signupForm.addEventListener('submit', (e) => {
       alert("Account Created!")
       updateProfile(auth.currentUser, {
         displayName: name
-      }).then(() => {
+      })
+      .then(() => {
         // Profile updated!
         // ...
       }).catch((err) => {
         alert(err.message)
       });
-      console.log(email);
-      console.log(password);
-      signupLogin(email, password);
+      signupLogin(email, password, name);
     })
     .catch((err) => {
       alert(err.message)
@@ -152,21 +154,44 @@ const loginForm = document.querySelector('.login')
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
-  const email = loginForm.email.value;
-  const password = loginForm.password.value;
-
-  signInWithEmailAndPassword(auth, email, password)
+  var email = loginForm.email.value;
+  var password = loginForm.password.value;
 
   signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
-      loginForm.reset()
+      loginForm.reset();
+      retrieveAllData();
+      retrieveData();
     })
     .catch((err) => {
       alert(err.message);
-    })
+    })  
 })
 
 //Sign in when sign up
+
+function signupLogin(email, password, name){
+
+  console.log(email + password);  
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      retrieveAllData();
+      test(name);
+    })
+    .catch((err) => {
+      alert(err.message);
+    }) 
+}
+
+function test (name){
+    welcomeUser.innerHTML = "Hello, " + name.charAt(0).toUpperCase() + name.slice(1);
+    bestScore.innerHTML = "Your best score is " + userBestScore;
+    signup.style.display = "none";
+    login.style.display = "none";
+    logoutButton.style.display = "block";
+    welcomeUser.style.display = "flex";
+} 
 
 //Log Out Function
 
