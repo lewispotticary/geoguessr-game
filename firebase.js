@@ -60,25 +60,21 @@ onAuthStateChanged(auth, (user) => {
 //Save Data to Database
 
 export function saveData(){
-    console.log("submit");
-    console.log(username);
     set(ref(db, "Users/" + userID),{
         Name: username,
         highScore: finalScore,
     });
 }
 
-var userBestScore;
-
 //Retrieve score data from database
 
+var userBestScore;
+
 export function retrieveData(){
-  console.log("retrieve");
   const dbRef = ref(getDatabase());
   get(child(dbRef, `Users/${userID}/highScore`)).then((snapshot) => {
   if (snapshot.exists()) {
     userBestScore = snapshot.val();
-    console.log("score" + userBestScore);
     bestScore.innerHTML = "Your best score is " + userBestScore;
   } else {
     console.log("No data available");
@@ -94,12 +90,10 @@ var allDatabaseData;
 var leaderboardArray = [];
 
 export function retrieveAllData(){
-  console.log("retrieve all data");
   const dbRef = ref(getDatabase());
   get(child(dbRef, `Users`)).then((snapshot) => {
   if (snapshot.exists()) {
     leaderboardArray = [];
-    console.log("all data retrieved");
     allDatabaseData = snapshot.val();
     var arraySize = Object.keys(allDatabaseData).length - 1;
     for (let i = 0; i <= arraySize; i++) {
@@ -129,7 +123,6 @@ signupForm.addEventListener('submit', (e) => {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
-      console.log('user created:', cred.user)
       alert("Account Created!")
       updateProfile(auth.currentUser, {
         displayName: name
@@ -177,6 +170,8 @@ function signupLogin(email, password, name){
   signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       retrieveAllData();
+      username = auth.currentUser.displayName;
+      userID = auth.currentUser.uid;
       test(name);
     })
     .catch((err) => {
