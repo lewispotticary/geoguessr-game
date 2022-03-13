@@ -10,7 +10,6 @@ import { finalScore } from "./script.js";
 
 import { sortScore } from "./table.js";
 
-
 //Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCZpjshBQB-W8nfcBF9G8jBjTeWNasf5uc",
@@ -133,6 +132,7 @@ signupForm.addEventListener('submit', (e) => {
       }).catch((err) => {
         alert(err.message)
       });
+      username = auth.currentUser.displayName;
       signupLogin(email, password, name);
     })
     .catch((err) => {
