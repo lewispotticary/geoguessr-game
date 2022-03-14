@@ -122,7 +122,6 @@ signupForm.addEventListener('submit', (e) => {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
-      alert("Account Created!")
       updateProfile(auth.currentUser, {
         displayName: name
       })
