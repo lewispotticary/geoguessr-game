@@ -49,14 +49,17 @@ h1 {
   border: 10px solid black;
 }
 
-.column-right h2 {
+.column-right h2,
+h3 {
   color: white;
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
+h3 {
+  margin-top: 0;
+}
 .info-container {
-  margin-bottom: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,6 +67,12 @@ h1 {
 
 .controls-container {
   margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.bottom-controls {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -94,10 +103,6 @@ button:disabled {
 #round-number {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-#restart-button {
-  margin-bottom: 1rem;
 }
 
 /* The Modal (background) */
@@ -236,9 +241,6 @@ td {
   #map {
     height: 100%;
     border-bottom: 0px solid black;
-  }
-  #score-number {
-    margin-top: 1rem;
   }
   .column-left {
     border-left: 0px solid black;
