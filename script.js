@@ -66,7 +66,7 @@ function placeMarker(location) {
 //Next Round Function 
 
   function nextRound(){  
-        console.log("hello");
+        infoMessage.innerHTML = "Click map above again for next guess!";
         restartButton.disabled = true;
         nextButton.disabled = true;
         map.setCenter({ lat: 32.397, lng: -30.644 }); 
@@ -114,6 +114,8 @@ function checkLocation(){
     //If user is signed in
     else{
       console.log("User signed in. Can save score");
+      console.log(score);
+      console.log(userBestScore);
       retrieveData();
       if (score < userBestScore){
         alert("New High Score. Uploading To Leaderboard...")
@@ -199,7 +201,7 @@ function calcCrow(guessLat, guessLng)
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c;
   distance = Math.round(d * 0.62137);
-  alert("You were " + distance + " miles away");
+  infoMessage.innerHTML = "You were " + distance + " miles away!";
   if(score === 0){
     score = distance;
     scoreNumber.innerHTML = "Score: " + score + " miles";
@@ -249,3 +251,5 @@ checkButton.disabled = true;
 var restartButton = document.getElementById("restart-button");
 restartButton.addEventListener("click", restartGame)
 restartButton.disabled = true;
+
+var infoMessage = document.getElementById("info-message");
