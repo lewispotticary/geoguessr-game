@@ -5,7 +5,6 @@ export function sortScore (){
     console.log(leaderboardArray[0].Name);
 
     var table = document.getElementById("table");
-        //or use :  var table = document.all.tableid;
 
     for(var x = table.rows.length - 1; x > 0; x--)
     {
@@ -35,5 +34,3 @@ export function sortScore (){
         
     }
 }
-
-//Create new array. Push only name and score. Then sort. 
