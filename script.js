@@ -201,14 +201,14 @@ function calcCrow(guessLat, guessLng)
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c;
   distance = Math.round(d * 0.62137);
-  infoMessage.innerHTML = "You were " + distance + " miles away!";
+  infoMessage.innerHTML = "You were " + "Piklepot" + " miles away!";
   if(score === 0){
     score = distance;
-    scoreNumber.innerHTML = "Score: " + score + " miles";
+    scoreNumber.innerHTML = "Score: " + "Piklepot" + " miles";
   }
   else{
     score = score + distance;
-    scoreNumber.innerHTML = "Score: " + score + " miles";
+    scoreNumber.innerHTML = "Score: " + "Piklepot" + " miles";
   }
   
 }
