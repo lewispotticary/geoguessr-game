@@ -10,27 +10,26 @@
 </head>
 <body>
     <div class="row">
+
         <div class="column-left">
             <div id="pano"></div>
         </div>
+
         <div class="column-right">
+
             <div id="map"></div>
+
             <div class="controls-container">
                 <button id="check-button">Check</button>
                 <h2 id="round-number"></h2>
                 <button id="next-button">Next Round</button>
             </div>
+
             <div class="info-container">
                 <h2 id="score-number"></h2>
-                <button id="restart-button">Restart</button>
-                <!-- <input type="text" name="" id="submit-input" placeholder="Name">
-                <input type="text" name="" id="score-input" placeholder="Score">
-                <button id="submit-button">Submit</button>-->
-                <!-- Trigger/Open The Modal -->
-                <button id="myBtn">Leaderboard</button>
-                <div id="myModal" class="modal">
+                <h3 id="info-message">Click map above to get started!</h3>
+                <div id="modal-container" class="modal">
                     <div class="modal-content">
-
                         <div class="modalHeader">
                             <h2 id="welcomeUser">Hello,</h2>
                             <span class="close">&times;</span>
@@ -63,12 +62,18 @@
                               <th>Name</th>
                               <th>Score</th>
                             </tr>
-                          </table>
+                        </table>
 
                         <button class="logout">logout</button>
                     </div>
                 </div>
             </div>
+
+            <div class="bottom-controls">
+                <button id="restart-button">Restart</button>
+                <button id="leaderboard-button">Leaderboard</button>
+            </div>
+
         </div>
     </div>
     <script
