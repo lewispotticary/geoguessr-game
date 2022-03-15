@@ -112,6 +112,7 @@ export function retrieveAllData(){
 //Sign Up Function
 
 const signupForm = document.querySelector('.signup')
+var signupError = document.getElementById("signup-error");
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -125,17 +126,11 @@ signupForm.addEventListener('submit', (e) => {
       updateProfile(auth.currentUser, {
         displayName: name
       })
-      .then(() => {
-        // Profile updated!
-        // ...
-      }).catch((err) => {
-        alert(err.message)
-      });
       username = auth.currentUser.displayName;
       signupLogin(email, password, name);
     })
     .catch((err) => {
-      alert(err.message)
+      signupError.innerHTML = err.message;
     })
 })
 
@@ -148,44 +143,40 @@ loginForm.addEventListener('submit', (e) => {
 
   var email = loginForm.email.value;
   var password = loginForm.password.value;
+  var loginError = document.getElementById("login-error");
+
+  loginError.innerHTML = "";
 
   signInWithEmailAndPassword(auth, email, password)
-    .then((cred) => {
+    .then(() => {
       loginForm.reset();
       retrieveAllData();
       retrieveData();
     })
     .catch((err) => {
-      alert(err.message);
+      loginError.innerHTML = err.message;
     })  
 })
 
 //Sign in when sign up
 
 function signupLogin(email, password, name){
-
-  console.log(email + password);  
-
   signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       retrieveAllData();
       username = auth.currentUser.displayName;
       userID = auth.currentUser.uid;
-      test(name);
+      welcomeUser.innerHTML = "Hello, " + name.charAt(0).toUpperCase() + name.slice(1);
+      bestScore.innerHTML = "Your best score is " + userBestScore;
+      signup.style.display = "none";
+      login.style.display = "none";
+      logoutButton.style.display = "block";
+      welcomeUser.style.display = "flex";
     })
     .catch((err) => {
-      alert(err.message);
+      signupError.innerHTML = err.message;
     }) 
 }
-
-function test (name){
-    welcomeUser.innerHTML = "Hello, " + name.charAt(0).toUpperCase() + name.slice(1);
-    bestScore.innerHTML = "Your best score is " + userBestScore;
-    signup.style.display = "none";
-    login.style.display = "none";
-    logoutButton.style.display = "block";
-    welcomeUser.style.display = "flex";
-} 
 
 //Log Out Function
 
