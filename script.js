@@ -102,6 +102,7 @@ function checkLocation(){
   showResults(guessLocation, guessLat, guessLng);
 
   //If game is finished run code 
+
   if(roundValue === 6){
     nextButton.disabled = true;
     restartButton.disabled = false;
@@ -109,24 +110,21 @@ function checkLocation(){
     finalScore = score;
     //If user not signed in
     if(userID === undefined){
-      console.log("Not signed in. Cannot save score");
+      infoMessage.innerHTML = "Sign in to save score to leaderboard";
     }
     //If user is signed in
     else{
-      console.log("User signed in. Can save score");
-      console.log(score);
-      console.log(userBestScore);
       retrieveData();
       if (score < userBestScore){
-        alert("New High Score. Uploading To Leaderboard...")
+        infoMessage.innerHTML = "New high score! Uploading to leaderboard...";
         saveData();
       }
       else if (userBestScore === undefined){
-        console.log("No account. Initial save");
+        infoMessage.innerHTML = "Uploading score to leaderboard...";
         saveData()
       }
       else{
-        console.log("Didnt get a high score");
+        infoMessage.innerHTML = "You didn't beat your high score. Try again.";
       }
     }
   }     
