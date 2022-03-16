@@ -32,12 +32,13 @@ const auth = getAuth();
 
 var signup = document.getElementsByClassName("signup")[0];
 var login = document.getElementsByClassName("login")[0];
-var welcomeUser = document.getElementById("welcomeUser");
+var welcomeUser = document.getElementById("welcome-user");
 var userID;
 var username;
 var userBestScore;
 
 onAuthStateChanged(auth, (user) => {
+    var leaderboardMessage = document.getElementById("leaderboard-message");
     if (user) {
       userID = user.uid;
       username = auth.currentUser.displayName;
@@ -47,12 +48,14 @@ onAuthStateChanged(auth, (user) => {
       login.style.display = "none";
       logoutButton.style.display = "block";
       welcomeUser.style.display = "flex";
+      leaderboardMessage.innerHTML = "";
     } else {
       bestScore.style.display = "none";
       signup.style.display = "flex";
       login.style.display = "flex";
       logoutButton.style.display = "none";
       welcomeUser.style.display = "none";
+      leaderboardMessage.innerHTML = "Please sign in to see leaderboard"
     } 
 });
 
@@ -121,6 +124,8 @@ signupForm.addEventListener('submit', (e) => {
   const password = signupForm.password.value;
   const name = signupForm.name.value;
 
+  signupError.innerHTML = "";
+
   createUserWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       updateProfile(auth.currentUser, {
@@ -161,6 +166,9 @@ loginForm.addEventListener('submit', (e) => {
 //Sign in when sign up
 
 function signupLogin(email, password, name){
+
+  signupError.innerHTML = "";
+
   signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
       retrieveAllData();
