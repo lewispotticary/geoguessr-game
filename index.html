@@ -31,7 +31,7 @@
                 <div id="modal-container" class="modal">
                     <div class="modal-content">
                         <div class="modalHeader">
-                            <h2 id="welcomeUser">Hello,</h2>
+                            <h2 id="welcome-user">Hello,</h2>
                             <span class="close">&times;</span>
                         </div>
 
@@ -42,6 +42,7 @@
                                 <h2>Login</h2>
                                 <input type="email" name="email" placeholder="Email">
                                 <input type="password" name="password" placeholder="Password">
+                                <p id="login-error"></p>
                                 <button>Login</button>
                             </form>
                             
@@ -50,6 +51,7 @@
                                 <input type="text" name="name" placeholder="Name">
                                 <input type="email" name="email" placeholder="Email">
                                 <input type="password" name="password" placeholder="Password">
+                                <p id="signup-error"></p>
                                 <button>Sign Up</button>
                             </form>
                         </div>
@@ -63,6 +65,8 @@
                               <th>Score</th>
                             </tr>
                         </table>
+
+                        <h4 id="leaderboard-message"></h4>
 
                         <button class="logout">logout</button>
                     </div>
@@ -80,7 +84,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCpNSevu6wyJ9LLKjE-uazvdVLvIyGNo&v=weekly"
       async
     ></script>
-    <script type="module" src="./script.js"></script>
+    <script type="module" src="./main.js"></script>
     <script type="module" src="./modal.js"></script>
     <script type="module" src="./firebase.js"></script>
 </body>

@@ -150,6 +150,11 @@ button:disabled {
   cursor: pointer;
 }
 
+#login-error,
+#signup-error {
+  color: red;
+}
+
 /* Modal Styling */
 
 .modal-content {
