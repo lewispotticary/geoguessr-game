@@ -6,7 +6,7 @@ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } 
 from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"
 
-import { finalScore } from "./script.js";
+import { finalScore } from "./main.js";
 
 import { sortScore } from "./table.js";
 
