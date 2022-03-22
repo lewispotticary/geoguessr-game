@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GeoGuessr Game</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/modal.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/table.css"/>
 </head>
 <body>
-    <div class="row">
+    <div class="main-container">
 
         <div class="column-left">
             <div id="pano"></div>
@@ -30,14 +32,14 @@
                 <h3 id="info-message">Click map above to get started!</h3>
                 <div id="modal-container" class="modal">
                     <div class="modal-content">
-                        <div class="modalHeader">
+                        <div class="modal-header">
                             <h2 id="welcome-user">Hello,</h2>
                             <span class="close">&times;</span>
                         </div>
 
                         <h3 id="bestScore">Your best score is</h3>
                        
-                        <div class="modalRow">
+                        <div class="modal-row">
                             <form class="login">
                                 <h2>Login</h2>
                                 <input type="email" name="email" placeholder="Email">
@@ -84,8 +86,8 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCpNSevu6wyJ9LLKjE-uazvdVLvIyGNo&v=weekly"
       async
     ></script>
-    <script type="module" src="./main.js"></script>
-    <script type="module" src="./modal.js"></script>
-    <script type="module" src="./firebase.js"></script>
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/modal.js"></script>
+    <script type="module" src="./js/firebase.js"></script>
 </body>
 </html>

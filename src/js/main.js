@@ -1,17 +1,17 @@
 //Import random coordinates from the randomLocations script
 
-import RandomLocations from "./RandomLocations.js";
+import RandomLocations from "./locations.js";
 
 //Import userID variable from firebase script
-import { userID } from "./firebase.js";
+import { userID } from "../js/firebase.js";
 
 //Import saveData function from firebase script 
-import {saveData} from './firebase.js';
+import {saveData} from '../js/firebase.js';
 
 //Import retrieveData function from firebase script 
-import { retrieveData } from "./firebase.js";
+import { retrieveData } from "../js/firebase.js";
 
-import { userBestScore } from "./firebase.js";
+import { userBestScore } from "../js/firebase.js";
 
 //Variables
 

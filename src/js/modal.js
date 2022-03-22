@@ -1,7 +1,5 @@
 import { retrieveAllData, retrieveData } from "./firebase.js";
 
-import { sortScore } from "./table.js";
-
 // Get the modal
 var modal = document.getElementById("modal-container");
 
