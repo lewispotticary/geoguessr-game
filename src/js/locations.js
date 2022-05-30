@@ -1,3 +1,5 @@
+//Storage of random street view coordinates
+
 export const RandomLocations = [
     [
         34.909584037461684,
