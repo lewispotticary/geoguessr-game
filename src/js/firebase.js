@@ -37,6 +37,8 @@ var userID;
 var username;
 var userBestScore;
 
+//When user logged in change page content
+
 onAuthStateChanged(auth, (user) => {
     var leaderboardMessage = document.getElementById("leaderboard-message");
     if (user) {
